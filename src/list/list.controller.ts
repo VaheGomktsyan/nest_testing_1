@@ -1,8 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpStatus,
+  Res,
+} from '@nestjs/common';
 import { ListService } from './list.service';
 import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 
+@ApiTags('List')
 @Controller('list')
 export class ListController {
   constructor(private readonly listService: ListService) {}
@@ -13,22 +26,22 @@ export class ListController {
   }
 
   @Get()
-  findAll() {
-    return this.listService.findAll();
+  async findAll() {
+      return await this.listService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.listService.findOne(+id);
+  async findOne(@Param('id') id: string, ) {
+   return await this.listService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateListDto: UpdateListDto) {
-    return this.listService.update(+id, updateListDto);
+  async update(@Param('id') id: string, @Body() updateListDto: UpdateListDto) {
+    return this.listService.update(id, updateListDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.listService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return this.listService.remove(id);
   }
 }
