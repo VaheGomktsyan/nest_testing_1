@@ -13,7 +13,6 @@ import { ListService } from './list.service';
 import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { Response } from 'express';
 
 @ApiTags('List')
 @Controller('list')
@@ -32,16 +31,16 @@ export class ListController {
 
   @Get(':id')
   async findOne(@Param('id') id: string, ) {
-   return await this.listService.findOne(id);
+   return await this.listService.findOne(+id);
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateListDto: UpdateListDto) {
-    return this.listService.update(id, updateListDto);
+    return this.listService.update(+id, updateListDto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.listService.remove(id);
+    return this.listService.remove(+id);
   }
 }

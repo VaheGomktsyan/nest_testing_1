@@ -1,12 +1,10 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-export type ListDocument = HydratedDocument<List>;
-@Schema()
+@Entity({name:"list"})
 export class List {
-  @Prop()
+  @PrimaryGeneratedColumn()
+  id: number;
+  @Column()
   name: string;
 }
 
-
-export const ListSchema=SchemaFactory.createForClass(List)
